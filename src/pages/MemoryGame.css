@@ -1,0 +1,134 @@
+.memory-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, #ffdde1 0%, #f8c9d4 40%, #d9c5f0 100%);
+}
+
+.memory-page__title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  color: #4a2c3a;
+  margin: 0 0 0.75rem;
+}
+
+.memory-page__subtitle {
+  font-size: 1rem;
+  color: #5c3a48;
+  margin: 0 0 1.5rem;
+  max-width: 28rem;
+}
+
+.memory-board {
+  position: relative;
+  width: min(92vw, 420px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.memory-card {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  aspect-ratio: 3 / 4;
+  perspective: 800px;
+}
+
+.memory-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.memory-card--flipped .memory-card__inner {
+  transform: rotateY(180deg);
+}
+
+.memory-card__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(74, 44, 58, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.memory-card__face--back {
+  background: linear-gradient(135deg, #d1477a, #a24fc4);
+  font-size: clamp(1.5rem, 6vw, 2rem);
+}
+
+.memory-card__face--front {
+  transform: rotateY(180deg);
+  background-size: cover;
+  background-position: center;
+}
+
+.memory-win-banner {
+  position: absolute;
+  top: -3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  background: rgba(74, 44, 58, 0.85);
+  animation: memory-win-banner-pop 0.3s ease;
+  white-space: nowrap;
+}
+
+@keyframes memory-win-banner-pop {
+  from {
+    transform: translateX(-50%) scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+.memory-win-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  text-align: center;
+  background: rgba(74, 44, 58, 0.85);
+  backdrop-filter: blur(2px);
+  border-radius: 12px;
+}
+
+.memory-win-overlay__text {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.memory-win-overlay__button {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #d1477a, #a24fc4);
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 2.5rem;
+  cursor: pointer;
+}

@@ -103,8 +103,8 @@ function PuzzleGame() {
         {solved && coinsCollected && (
           <div className="puzzle-win-overlay">
             <p className="puzzle-win-overlay__text">Riktig! 🎉</p>
-            <button className="puzzle-win-overlay__button" onClick={() => navigate('/fremgang')}>
-              Se fremgang
+            <button className="puzzle-win-overlay__button" onClick={() => navigate('/spill/2')}>
+              Neste øvelse
             </button>
           </div>
         )}
