@@ -1,10 +1,9 @@
-import { useGameProgress, TOTAL_GAMES, COINS_PER_GAME } from '../context/GameProgressContext'
+import { useGameProgress, TOTAL_GOAL } from '../context/GameProgressContext'
 import './TreasureChest.css'
 
 function TreasureChest() {
   const { totalCoins } = useGameProgress()
-  const gamesCompleted = totalCoins / COINS_PER_GAME
-  const fillPercent = (gamesCompleted / TOTAL_GAMES) * 100
+  const fillPercent = (totalCoins / TOTAL_GOAL) * 100
 
   return (
     <div className="treasure-chest" aria-label={`${totalCoins} mynter samlet`}>

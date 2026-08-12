@@ -1,8 +1,16 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 
 export const TOTAL_GAMES = 6
-export const COINS_PER_GAME = 200
-export const TOTAL_GOAL = TOTAL_GAMES * COINS_PER_GAME
+// Increasing reward per game, summing to exactly TOTAL_GOAL (1000).
+export const GAME_REWARDS: Record<number, number> = {
+  1: 100,
+  2: 125,
+  3: 150,
+  4: 175,
+  5: 200,
+  6: 250,
+}
+export const TOTAL_GOAL = Object.values(GAME_REWARDS).reduce((sum, v) => sum + v, 0)
 
 const STORAGE_KEY = 'bryllupsgave-progress'
 
@@ -11,6 +19,7 @@ type CompletedGames = Record<number, boolean>
 interface GameProgressContextValue {
   completedGames: CompletedGames
   totalCoins: number
+  gamesCompleted: number
   completeGame: (gameId: number) => void
   isGameCompleted: (gameId: number) => boolean
 }
@@ -39,10 +48,16 @@ export function GameProgressProvider({ children }: { children: ReactNode }) {
 
   const isGameCompleted = (gameId: number) => Boolean(completedGames[gameId])
 
-  const totalCoins = Object.values(completedGames).filter(Boolean).length * COINS_PER_GAME
+  const completedIds = Object.entries(completedGames)
+    .filter(([, done]) => done)
+    .map(([id]) => Number(id))
+  const totalCoins = completedIds.reduce((sum, id) => sum + (GAME_REWARDS[id] ?? 0), 0)
+  const gamesCompleted = completedIds.length
 
   return (
-    <GameProgressContext.Provider value={{ completedGames, totalCoins, completeGame, isGameCompleted }}>
+    <GameProgressContext.Provider
+      value={{ completedGames, totalCoins, gamesCompleted, completeGame, isGameCompleted }}
+    >
       {children}
     </GameProgressContext.Provider>
   )
