@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 
-export const TOTAL_GAMES = 5
+export const TOTAL_GAMES = 6
 export const COINS_PER_GAME = 200
 export const TOTAL_GOAL = TOTAL_GAMES * COINS_PER_GAME
 
