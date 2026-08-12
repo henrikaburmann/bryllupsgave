@@ -26,7 +26,7 @@
 .flappy-area {
   position: relative;
   width: min(88vw, 340px);
-  height: min(70vh, 480px);
+  height: min(82vh, 640px);
   background: linear-gradient(180deg, #bfe3f5 0%, #eaf7ff 100%);
   border-radius: 16px;
   overflow: hidden;

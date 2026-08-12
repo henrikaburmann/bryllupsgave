@@ -9,14 +9,14 @@ import './FlappyGame.css'
 
 const GAME_ID = 3
 const AREA_WIDTH = 340
-const AREA_HEIGHT = 480
+const AREA_HEIGHT = 640
 const BIRD_SIZE = 48
 const BIRD_X = 60
-const GRAVITY = 0.35
-const JUMP_VELOCITY = -7
-const PIPE_SPEED = 2.2
+const GRAVITY = 0.18
+const JUMP_VELOCITY = -5.5
+const PIPE_SPEED = 1.8
 const PIPE_WIDTH = 50
-const GAP_SIZE = 170
+const GAP_SIZE = 240
 const SPAWN_SPACING = 220
 const TOTAL_OBSTACLES = 10
 const HEART_COUNT = 6
