@@ -54,9 +54,16 @@ function RingGame() {
   const [solved, setSolved] = useState(false)
   const [, setRenderTick] = useState(0)
 
-  const step = useCallback(() => {
+  const lastTimeRef = useRef<number | null>(null)
+  const TARGET_MS = 1000 / 60
+
+  const step = useCallback((now: number) => {
+    const dt = lastTimeRef.current === null ? TARGET_MS : Math.min(now - lastTimeRef.current, 50)
+    lastTimeRef.current = now
+    const scale = dt / TARGET_MS
+
     const d = dataRef.current
-    d.ring.y += d.ring.speed
+    d.ring.y += d.ring.speed * scale
 
     const ringCenterX = d.ring.x
     const ringBottom = d.ring.y + RING_SIZE / 2
@@ -80,9 +87,10 @@ function RingGame() {
 
     setRenderTick((t) => t + 1)
     rafRef.current = requestAnimationFrame(step)
-  }, [])
+  }, [TARGET_MS])
 
   const startGame = useCallback(() => {
+    lastTimeRef.current = null
     dataRef.current = createInitialData()
     setSolved(false)
     setPhase('playing')

@@ -61,18 +61,25 @@ function FlappyGame() {
   const [showButton, setShowButton] = useState(false)
   const [, setRenderTick] = useState(0)
 
-  const step = useCallback(() => {
+  const lastTimeRef = useRef<number | null>(null)
+  const TARGET_MS = 1000 / 60
+
+  const step = useCallback((now: number) => {
+    const dt = lastTimeRef.current === null ? TARGET_MS : Math.min(now - lastTimeRef.current, 50)
+    lastTimeRef.current = now
+    const scale = dt / TARGET_MS
+
     const s = stateRef.current
 
-    s.velocity += GRAVITY
-    s.birdY += s.velocity
+    s.velocity += GRAVITY * scale
+    s.birdY += s.velocity * scale
 
     s.obstacles.forEach((o) => {
-      o.x -= PIPE_SPEED
+      o.x -= PIPE_SPEED * scale
     })
     s.obstacles = s.obstacles.filter((o) => o.x + PIPE_WIDTH > 0)
 
-    s.distanceSinceLastSpawn += PIPE_SPEED
+    s.distanceSinceLastSpawn += PIPE_SPEED * scale
     if (s.totalSpawned < TOTAL_OBSTACLES && s.distanceSinceLastSpawn >= SPAWN_SPACING) {
       s.distanceSinceLastSpawn = 0
       const margin = GAP_SIZE / 2 + 20
@@ -118,9 +125,10 @@ function FlappyGame() {
 
     setRenderTick((t) => t + 1)
     rafRef.current = requestAnimationFrame(step)
-  }, [])
+  }, [TARGET_MS])
 
   const startGame = useCallback(() => {
+    lastTimeRef.current = null
     stateRef.current = createInitialState()
     setSolved(false)
     setShowButton(false)
