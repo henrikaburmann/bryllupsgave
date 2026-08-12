@@ -54,10 +54,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1px;
 }
 
-.maze-goal img,
+.maze-player {
+  padding: 1px;
+  transition: left 0.1s ease, top 0.1s ease;
+  z-index: 2;
+}
+
 .maze-player img {
   width: 100%;
   height: 100%;
@@ -67,9 +71,138 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
 }
 
-.maze-player {
-  transition: left 0.1s ease, top 0.1s ease;
+/* Castle at the goal, drawn larger than one cell and rising above it. */
+.maze-goal {
+  overflow: visible;
+  z-index: 1;
+}
+
+.castle {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.maze-goal--reached .castle {
+  filter: drop-shadow(0 0 8px rgba(255, 210, 120, 0.95));
+}
+
+.castle__victoria {
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
   z-index: 2;
+}
+
+.castle__victoria img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.castle__flag {
+  position: absolute;
+  top: -18%;
+  left: 50%;
+  width: 3px;
+  height: 22%;
+  background: #6b4a2f;
+}
+
+.castle__flag::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 3px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid #d1477a;
+}
+
+.castle__battlement {
+  width: 90%;
+  height: 9px;
+  margin-top: -6%;
+  background: repeating-linear-gradient(
+    90deg,
+    #b9a089 0,
+    #b9a089 20%,
+    transparent 20%,
+    transparent 40%
+  );
+}
+
+.castle__body {
+  position: relative;
+  width: 90%;
+  height: 34px;
+  background: linear-gradient(180deg, #cdb79e 0%, #a98a6d 100%);
+  border-radius: 3px 3px 4px 4px;
+  box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.castle__window {
+  position: absolute;
+  top: 22%;
+  width: 16%;
+  height: 30%;
+  background: #4a2c3a;
+  border-radius: 40% 40% 0 0;
+}
+
+.castle__window--left {
+  left: 18%;
+}
+
+.castle__window--right {
+  right: 18%;
+}
+
+.castle__gate {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 55%;
+  background: #5a3d2b;
+  border-radius: 45% 45% 0 0;
+}
+
+.castle-hearts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.castle-heart {
+  position: absolute;
+  top: 0;
+  font-size: 1rem;
+  animation: castle-heart-float 1.6s ease-in forwards;
+}
+
+@keyframes castle-heart-float {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-70px) scale(1.1);
+    opacity: 0;
+  }
 }
 
 .maze-overlay {

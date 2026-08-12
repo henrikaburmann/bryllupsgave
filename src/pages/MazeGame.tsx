@@ -160,7 +160,7 @@ function MazeGame() {
         </div>
 
         <div
-          className="maze-goal"
+          className={`maze-goal${solved ? ' maze-goal--reached' : ''}`}
           style={{
             left: `${GOAL.x * cellPercent}%`,
             top: `${GOAL.y * cellPercent}%`,
@@ -168,7 +168,28 @@ function MazeGame() {
             height: `${cellPercent}%`,
           }}
         >
-          <img src={victoriaImage} alt="Victoria" />
+          <div className="castle">
+            <div className="castle__victoria">
+              <img src={victoriaImage} alt="Victoria" />
+            </div>
+            <div className="castle__flag" />
+            <div className="castle__battlement" />
+            <div className="castle__body">
+              <div className="castle__window castle__window--left" />
+              <div className="castle__window castle__window--right" />
+              <div className="castle__gate" />
+            </div>
+          </div>
+
+          {solved && (
+            <div className="castle-hearts" aria-hidden="true">
+              {Array.from({ length: 6 }, (_, i) => (
+                <span key={i} className="castle-heart" style={{ animationDelay: `${i * 140}ms`, left: `${i * 18 - 5}%` }}>
+                  ❤️
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         <div
