@@ -82,8 +82,8 @@ function ProgressPage() {
 
       {showButton && (
         allDone ? (
-          <button className="progress-page__button" onClick={() => navigate('/gave')}>
-            🎁 Hent gaven!
+          <button className="progress-page__button" onClick={() => navigate('/premie')}>
+            Motta gave 🎁
           </button>
         ) : nextPath ? (
           <button className="progress-page__button" onClick={() => navigate(nextPath)}>

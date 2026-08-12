@@ -9,6 +9,7 @@ import HangmanGame from './pages/HangmanGame'
 import RingGame from './pages/RingGame'
 import MazeGame from './pages/MazeGame'
 import ProgressPage from './pages/ProgressPage'
+import GiftRevealPage from './pages/GiftRevealPage'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/spill/5" element={<RingGame />} />
           <Route path="/spill/6" element={<MazeGame />} />
           <Route path="/fremgang" element={<ProgressPage />} />
+          <Route path="/premie" element={<GiftRevealPage />} />
         </Routes>
       </BrowserRouter>
     </GameProgressProvider>
