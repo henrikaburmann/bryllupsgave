@@ -8,8 +8,8 @@ import './RingGame.css'
 const GAME_ID = 5
 const AREA_WIDTH = 360
 const AREA_HEIGHT = 560
-const FINGER_WIDTH = 80
-const FINGER_HEIGHT = Math.round(AREA_HEIGHT * 0.62)
+const FINGER_WIDTH = Math.round(AREA_WIDTH * 0.15)
+const FINGER_HEIGHT = Math.round(AREA_HEIGHT * 0.34)
 const FINGER_TIP_Y = AREA_HEIGHT - FINGER_HEIGHT
 const RING_SIZE = 40
 const START_SPEED = 2.4
