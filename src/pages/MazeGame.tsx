@@ -8,10 +8,10 @@ import victoriaImage from '../images/flappyBirdGame/Victoria-flappy.png'
 import './MazeGame.css'
 
 const GAME_ID = 6
-const SIZE = 25 // odd number
-const CELL_SIZE = 34 // px, fixed so characters stay readable
+const SIZE = 15 // odd number
 const START = { x: 1, y: 1 }
 const GOAL = { x: (SIZE - 1) / 2, y: (SIZE - 1) / 2 }
+const BRAID_CHANCE = 0.45 // fraction of dead ends opened up for more branching
 
 type Cell = 0 | 1 // 0 = path, 1 = wall
 
@@ -39,6 +39,35 @@ function generateMaze(): Cell[][] {
 
   carve(START.x, START.y)
   maze[GOAL.y][GOAL.x] = 0
+
+  // Braid: open some dead ends so there are more junctions and route choices.
+  const nbrs = [
+    [0, -1],
+    [0, 1],
+    [-1, 0],
+    [1, 0],
+  ]
+  for (let y = 1; y < SIZE - 1; y += 1) {
+    for (let x = 1; x < SIZE - 1; x += 1) {
+      if (maze[y][x] !== 0) continue
+      const open = nbrs.filter(([dx, dy]) => maze[y + dy][x + dx] === 0)
+      if (open.length === 1 && Math.random() < BRAID_CHANCE) {
+        const walls = nbrs.filter(
+          ([dx, dy]) =>
+            maze[y + dy][x + dx] === 1 &&
+            x + dx > 0 &&
+            x + dx < SIZE - 1 &&
+            y + dy > 0 &&
+            y + dy < SIZE - 1,
+        )
+        if (walls.length) {
+          const [dx, dy] = walls[Math.floor(Math.random() * walls.length)]
+          maze[y + dy][x + dx] = 0
+        }
+      }
+    }
+  }
+
   return maze
 }
 
@@ -59,16 +88,6 @@ function MazeGame() {
   const [pos, setPos] = useState(START)
   const [solved, setSolved] = useState(false)
   const [coinsCollected, setCoinsCollected] = useState(false)
-  const [viewport, setViewport] = useState(320)
-
-  useEffect(() => {
-    const measure = () => {
-      if (areaRef.current) setViewport(areaRef.current.clientWidth)
-    }
-    measure()
-    window.addEventListener('resize', measure)
-    return () => window.removeEventListener('resize', measure)
-  }, [])
 
   const move = useCallback(
     (dir: Direction) => {
@@ -120,10 +139,7 @@ function MazeGame() {
     setCoinsCollected(true)
   }, [completeGame])
 
-  const mazePx = SIZE * CELL_SIZE
-  const clamp = (raw: number) => Math.min(0, Math.max(viewport - mazePx, raw))
-  const camX = clamp(viewport / 2 - (pos.x + 0.5) * CELL_SIZE)
-  const camY = clamp(viewport / 2 - (pos.y + 0.5) * CELL_SIZE)
+  const cellPercent = 100 / SIZE
 
   return (
     <div className="maze-page">
@@ -133,36 +149,38 @@ function MazeGame() {
 
       <div className="maze-area" ref={areaRef}>
         <div
-          className="maze-camera"
-          style={{ width: mazePx, height: mazePx, transform: `translate(${camX}px, ${camY}px)` }}
+          className="maze-grid"
+          style={{ gridTemplateColumns: `repeat(${SIZE}, 1fr)`, gridTemplateRows: `repeat(${SIZE}, 1fr)` }}
         >
-          <div
-            className="maze-grid"
-            style={{
-              gridTemplateColumns: `repeat(${SIZE}, ${CELL_SIZE}px)`,
-              gridTemplateRows: `repeat(${SIZE}, ${CELL_SIZE}px)`,
-            }}
-          >
-            {maze.flatMap((row, y) =>
-              row.map((cell, x) => (
-                <div key={`${x}-${y}`} className={`maze-cell${cell === 1 ? ' maze-cell--wall' : ''}`} />
-              )),
-            )}
-          </div>
+          {maze.flatMap((row, y) =>
+            row.map((cell, x) => (
+              <div key={`${x}-${y}`} className={`maze-cell${cell === 1 ? ' maze-cell--wall' : ''}`} />
+            )),
+          )}
+        </div>
 
-          <div
-            className="maze-goal"
-            style={{ left: GOAL.x * CELL_SIZE, top: GOAL.y * CELL_SIZE, width: CELL_SIZE, height: CELL_SIZE }}
-          >
-            <img src={victoriaImage} alt="Victoria" />
-          </div>
+        <div
+          className="maze-goal"
+          style={{
+            left: `${GOAL.x * cellPercent}%`,
+            top: `${GOAL.y * cellPercent}%`,
+            width: `${cellPercent}%`,
+            height: `${cellPercent}%`,
+          }}
+        >
+          <img src={victoriaImage} alt="Victoria" />
+        </div>
 
-          <div
-            className="maze-player"
-            style={{ left: pos.x * CELL_SIZE, top: pos.y * CELL_SIZE, width: CELL_SIZE, height: CELL_SIZE }}
-          >
-            <img src={torImage} alt="Tor-Øyvind" />
-          </div>
+        <div
+          className="maze-player"
+          style={{
+            left: `${pos.x * cellPercent}%`,
+            top: `${pos.y * cellPercent}%`,
+            width: `${cellPercent}%`,
+            height: `${cellPercent}%`,
+          }}
+        >
+          <img src={torImage} alt="Tor-Øyvind" />
         </div>
 
         {solved && coinsCollected && (
