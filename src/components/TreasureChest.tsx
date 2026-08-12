@@ -7,16 +7,14 @@ function TreasureChest() {
   const fillPercent = (gamesCompleted / TOTAL_GAMES) * 100
 
   return (
-    <div className="treasure-chest" aria-label={`${gamesCompleted} av ${TOTAL_GAMES} øvelser fullført`}>
+    <div className="treasure-chest" aria-label={`${totalCoins} mynter samlet`}>
       <div className="treasure-chest__box">
         <div className="treasure-chest__fill" style={{ height: `${fillPercent}%` }} />
         <span id="treasure-chest-target" className="treasure-chest__icon">
           🧰
         </span>
       </div>
-      <span className="treasure-chest__count">
-        {gamesCompleted}/{TOTAL_GAMES}
-      </span>
+      <span className="treasure-chest__count">🪙 {totalCoins}</span>
     </div>
   )
 }
