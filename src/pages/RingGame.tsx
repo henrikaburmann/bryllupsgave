@@ -10,8 +10,8 @@ const FINGER_WIDTH = Math.round(AREA_WIDTH * 0.15)
 const FINGER_HEIGHT = Math.round(AREA_HEIGHT * 0.34)
 const FINGER_TIP_Y = AREA_HEIGHT - FINGER_HEIGHT
 const RING_SIZE = 40
-const START_SPEED = 2.4
-const SPEED_INCREMENT = 0.18
+const START_SPEED = 3.5
+const SPEED_INCREMENT = 0.22
 const RINGS_TO_WIN = 10
 
 interface RingState {

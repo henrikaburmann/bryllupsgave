@@ -19,7 +19,7 @@ function CongratsPage() {
         Tor-Øyvind <span className="congrats-page__amp">&amp;</span> Victoria
       </h1>
       <p className="congrats-page__subtitle">
-        Vi ønsker dere alt godt på veien videre sammen!
+        Vi takker for et fantastisk bryllup! Vi ønsker dere alt godt på veien videre sammen!
       </p>
 
       <button
