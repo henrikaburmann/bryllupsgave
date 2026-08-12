@@ -22,7 +22,7 @@ function TreasureChest() {
           ))}
         </span>
       </div>
-      <p className="chest__label">🪙 {totalCoins} / {TOTAL_GOAL}</p>
+      <p className="chest__label">🪙 {totalCoins}</p>
     </div>
   )
 }

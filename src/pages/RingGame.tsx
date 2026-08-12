@@ -189,7 +189,7 @@ function RingGame() {
         {solved && (
           <div className="ring-overlay ring-overlay--win">
             <p className="ring-overlay__text">Alle ringene på plass! 🎉</p>
-            <button className="ring-overlay__button" onClick={() => navigate('/fremgang')}>
+            <button className="ring-overlay__button" onClick={() => navigate('/fremgang?earned=200')}>
               Se fremgang
             </button>
           </div>

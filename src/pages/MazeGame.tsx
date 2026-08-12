@@ -193,7 +193,7 @@ function MazeGame() {
         {solved && (
           <div className="maze-overlay">
             <p className="maze-overlay__text">Dere fant hverandre! 🎉</p>
-            <button className="maze-overlay__button" onClick={() => navigate('/fremgang')}>
+            <button className="maze-overlay__button" onClick={() => navigate('/fremgang?earned=250')}>
               Se fremgang
             </button>
           </div>
