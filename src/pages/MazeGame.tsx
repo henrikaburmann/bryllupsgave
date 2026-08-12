@@ -8,7 +8,7 @@ import victoriaImage from '../images/flappyBirdGame/Victoria-flappy.png'
 import './MazeGame.css'
 
 const GAME_ID = 6
-const SIZE = 11 // odd number
+const SIZE = 19 // odd number
 const START = { x: 1, y: 1 }
 const GOAL = { x: (SIZE - 1) / 2, y: (SIZE - 1) / 2 }
 
