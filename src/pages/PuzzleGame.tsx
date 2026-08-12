@@ -61,7 +61,7 @@ function PuzzleGame() {
 
   return (
     <div className="puzzle-page">
-      <h1 className="puzzle-page__title">Øvelse 1: Puzzlespill</h1>
+      <h1 className="puzzle-page__title">Øvelse 1: Puslespill</h1>
       <p className="puzzle-page__subtitle">
         Trykk på to brikker for å bytte plass på dem. Få bildet riktig for å låse opp neste øvelse!
       </p>

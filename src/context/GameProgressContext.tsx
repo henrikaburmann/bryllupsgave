@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 
 export const TOTAL_GAMES = 6
 // Increasing reward per game, summing to exactly TOTAL_GOAL (1000).
@@ -42,9 +42,9 @@ export function GameProgressProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(completedGames))
   }, [completedGames])
 
-  const completeGame = (gameId: number) => {
+  const completeGame = useCallback((gameId: number) => {
     setCompletedGames((prev) => ({ ...prev, [gameId]: true }))
-  }
+  }, [])
 
   const isGameCompleted = (gameId: number) => Boolean(completedGames[gameId])
 
