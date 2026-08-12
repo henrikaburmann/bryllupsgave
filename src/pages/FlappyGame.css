@@ -1,0 +1,175 @@
+.flappy-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, #ffdde1 0%, #f8c9d4 40%, #d9c5f0 100%);
+}
+
+.flappy-page__title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: #4a2c3a;
+  margin: 0 0 0.75rem;
+}
+
+.flappy-page__subtitle {
+  font-size: 1rem;
+  color: #5c3a48;
+  margin: 0 0 1.5rem;
+  max-width: 28rem;
+}
+
+.flappy-area {
+  position: relative;
+  width: min(88vw, 340px);
+  height: min(70vh, 480px);
+  background: linear-gradient(180deg, #bfe3f5 0%, #eaf7ff 100%);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(74, 44, 58, 0.3);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.flappy-bird {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+}
+
+.flappy-bird img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flappy-bird--meeting {
+  top: 42% !important;
+  left: calc(50% - 60px) !important;
+  transition: top 0.8s ease, left 0.8s ease;
+}
+
+.flappy-victoria {
+  position: absolute;
+  top: 42%;
+  left: calc(50% + 12px);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  animation: flappy-fade-in 0.6s ease;
+}
+
+.flappy-victoria img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes flappy-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.flappy-pipe-pair {
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 100%;
+}
+
+.flappy-pipe {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #4caf6f, #6fd190);
+  border: 2px solid #38804f;
+  border-radius: 4px;
+}
+
+.flappy-pipe--top {
+  top: 0;
+}
+
+.flappy-pipe--bottom {
+  bottom: 0;
+}
+
+.flappy-hearts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.flappy-heart {
+  position: absolute;
+  bottom: 20%;
+  font-size: 1.5rem;
+  animation: flappy-heart-float 2s ease-in forwards;
+}
+
+@keyframes flappy-heart-float {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-220px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.flappy-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  text-align: center;
+  background: rgba(74, 44, 58, 0.55);
+}
+
+.flappy-overlay--win {
+  background: rgba(74, 44, 58, 0.75);
+}
+
+.flappy-overlay__text {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.flappy-overlay__button {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #d1477a, #a24fc4);
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 2.5rem;
+  cursor: pointer;
+}
