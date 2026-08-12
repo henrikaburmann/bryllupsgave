@@ -1,0 +1,131 @@
+.ring-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, #ffdde1 0%, #f8c9d4 40%, #d9c5f0 100%);
+}
+
+.ring-page__title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: #4a2c3a;
+  margin: 0 0 0.75rem;
+}
+
+.ring-page__subtitle {
+  font-size: 1rem;
+  color: #5c3a48;
+  margin: 0 0 1.5rem;
+  max-width: 28rem;
+}
+
+.ring-area {
+  position: relative;
+  width: min(calc(100vw - 3rem), 360px);
+  aspect-ratio: 360 / 560;
+  background: linear-gradient(180deg, #fff5fa 0%, #f5e6f7 100%);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(74, 44, 58, 0.3);
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
+
+.ring-drop {
+  position: absolute;
+  width: 11%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.8rem, 8vw, 2.4rem);
+  line-height: 1;
+}
+
+.ring-finger {
+  position: absolute;
+  bottom: 0;
+  width: 25%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: clamp(2.8rem, 13vw, 4rem);
+  line-height: 1;
+}
+
+.ring-counter {
+  position: absolute;
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4a2c3a;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.2rem 0.9rem;
+  border-radius: 999px;
+}
+
+.ring-win-hearts {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 2.5rem;
+}
+
+.ring-win-hand {
+  font-size: 4rem;
+  animation: ring-pop 0.6s ease;
+}
+
+@keyframes ring-pop {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.ring-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  text-align: center;
+  background: rgba(74, 44, 58, 0.55);
+}
+
+.ring-overlay--win {
+  background: rgba(74, 44, 58, 0.75);
+}
+
+.ring-overlay__text {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.ring-overlay__button {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #d1477a, #a24fc4);
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 2.5rem;
+  cursor: pointer;
+}

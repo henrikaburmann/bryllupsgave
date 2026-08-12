@@ -139,8 +139,8 @@ function HangmanGame() {
         {isWon && coinsCollected && (
           <div className="hangman-overlay hangman-overlay--win">
             <p className="hangman-overlay__text">Riktig! 🎉</p>
-            <button className="hangman-overlay__button" onClick={() => navigate('/fremgang')}>
-              Se fremgang
+            <button className="hangman-overlay__button" onClick={() => navigate('/spill/5')}>
+              Neste øvelse
             </button>
           </div>
         )}

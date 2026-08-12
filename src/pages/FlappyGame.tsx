@@ -8,7 +8,7 @@ import victoriaImage from '../images/flappyBirdGame/Victoria-flappy.png'
 import './FlappyGame.css'
 
 const GAME_ID = 3
-const AREA_WIDTH = 340
+const AREA_WIDTH = 420
 const AREA_HEIGHT = 640
 const BIRD_SIZE = 48
 const BIRD_X = 60

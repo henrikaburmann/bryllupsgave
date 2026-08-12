@@ -6,6 +6,7 @@ import PuzzleGame from './pages/PuzzleGame'
 import MemoryGame from './pages/MemoryGame'
 import FlappyGame from './pages/FlappyGame'
 import HangmanGame from './pages/HangmanGame'
+import RingGame from './pages/RingGame'
 import ProgressPage from './pages/ProgressPage'
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/spill/2" element={<MemoryGame />} />
           <Route path="/spill/3" element={<FlappyGame />} />
           <Route path="/spill/4" element={<HangmanGame />} />
+          <Route path="/spill/5" element={<RingGame />} />
           <Route path="/fremgang" element={<ProgressPage />} />
         </Routes>
       </BrowserRouter>
