@@ -165,6 +165,8 @@ function RingGame() {
         >
           <div className="finger">
             <div className="finger__nail" />
+            <div className="finger__joint finger__joint--upper" />
+            <div className="finger__joint finger__joint--lower" />
             {Array.from({ length: caught }, (_, i) => (
               <div key={i} className="finger__ring" style={{ top: `${16 + i * 7}%` }}>
                 {i === 0 && <span className="finger__gem" />}
