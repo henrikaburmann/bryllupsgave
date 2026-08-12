@@ -91,7 +91,7 @@ function HangmanGame() {
         <div className="hangman-word">
           {solutionLetters.map((letter, index) => {
             const isLetter = /[A-ZÆØÅ]/.test(letter)
-            const isRevealed = !isLetter || guessedLetters.has(letter) || isLost
+            const isRevealed = !isLetter || guessedLetters.has(letter)
             return (
               <span key={index} className="hangman-slot">
                 <span className="hangman-slot__letter">{isRevealed ? letter : ''}</span>
@@ -129,7 +129,7 @@ function HangmanGame() {
 
         {isLost && (
           <div className="hangman-overlay">
-            <p className="hangman-overlay__text">Å nei! Ordet var {SOLUTION_STRING}. Prøv igjen 🙈</p>
+            <p className="hangman-overlay__text">Å nei! Prøv igjen 🙈</p>
             <button className="hangman-overlay__button" onClick={resetGame}>
               Prøv igjen
             </button>
