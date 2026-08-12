@@ -106,8 +106,8 @@ function MemoryGame() {
         {solved && (
           <div className="memory-win-overlay">
             <p className="memory-win-overlay__text">Riktig! 🎉</p>
-            <button className="memory-win-overlay__button" onClick={() => navigate('/spill/3')}>
-              Neste øvelse
+            <button className="memory-win-overlay__button" onClick={() => navigate('/fremgang')}>
+              Se fremgang
             </button>
           </div>
         )}
