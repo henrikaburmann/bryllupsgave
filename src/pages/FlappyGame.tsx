@@ -16,7 +16,7 @@ const GRAVITY = 0.13
 const JUMP_VELOCITY = -4.5
 const PIPE_SPEED = 1.4
 const PIPE_WIDTH = 50
-const GAP_SIZE = 240
+const GAP_SIZE = 300
 const SPAWN_SPACING = 220
 const TOTAL_OBSTACLES = 10
 const HEART_COUNT = 6
@@ -78,7 +78,7 @@ function FlappyGame() {
     s.distanceSinceLastSpawn += PIPE_SPEED
     if (s.totalSpawned < TOTAL_OBSTACLES && s.distanceSinceLastSpawn >= SPAWN_SPACING) {
       s.distanceSinceLastSpawn = 0
-      const margin = 60
+      const margin = GAP_SIZE / 2 + 20
       const gapCenter = margin + Math.random() * (AREA_HEIGHT - margin * 2)
       s.obstacles.push({ id: s.nextId, x: AREA_WIDTH, gapCenter, passed: false })
       s.nextId += 1
