@@ -1,29 +1,33 @@
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useGameProgress, TOTAL_GAMES } from '../context/GameProgressContext'
+import { useNavigate, useParams } from 'react-router-dom'
 import TreasureChest from '../components/TreasureChest'
 import './ProgressPage.css'
 
-const NEXT_GAME: Record<number, string> = { 1: '/spill/2', 2: '/spill/3', 3: '/spill/4', 4: '/spill/5', 5: '/spill/6' }
+// All values are static — no context or localStorage needed.
+const STEPS: Record<number, { earned: number; total: number; fillPercent: number; nextPath: string }> = {
+  1: { earned: 100, total: 100,  fillPercent: 10,   nextPath: '/spill/2' },
+  2: { earned: 125, total: 225,  fillPercent: 22.5, nextPath: '/spill/3' },
+  3: { earned: 150, total: 375,  fillPercent: 37.5, nextPath: '/spill/4' },
+  4: { earned: 175, total: 550,  fillPercent: 55,   nextPath: '/spill/5' },
+  5: { earned: 200, total: 750,  fillPercent: 75,   nextPath: '/spill/6' },
+  6: { earned: 250, total: 1000, fillPercent: 100,  nextPath: '/premie'  },
+}
+
 const COIN_COUNT = 8
 const ANIM_MS = 1400
 
-interface FloatingCoin {
-  id: number
-  x: number
-  delay: number
-}
+interface FloatingCoin { id: number; x: number; delay: number }
 
 function ProgressPage() {
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
-  const { gamesCompleted } = useGameProgress()
-  const earned = Number(searchParams.get('earned') ?? 0)
-  const allDone = gamesCompleted >= TOTAL_GAMES
-  const nextPath = NEXT_GAME[gamesCompleted]
+  const { step } = useParams<{ step: string }>()
+  const data = STEPS[Number(step)] ?? STEPS[1]
+  const isLast = Number(step) === 6
 
   const [counter, setCounter] = useState(0)
-  const [showButton, setShowButton] = useState(!earned)
+  const [showButton, setShowButton] = useState(false)
+  const rafRef = useRef<number | null>(null)
+
   const [coins] = useState<FloatingCoin[]>(() =>
     Array.from({ length: COIN_COUNT }, (_, i) => ({
       id: i,
@@ -31,15 +35,12 @@ function ProgressPage() {
       delay: i * (ANIM_MS / COIN_COUNT / 2),
     })),
   )
-  const rafRef = useRef<number | null>(null)
 
   useEffect(() => {
-    if (!earned) return
     const start = Date.now()
     const tick = () => {
       const t = Math.min((Date.now() - start) / ANIM_MS, 1)
-      // ease-out curve
-      setCounter(Math.round((1 - (1 - t) ** 3) * earned))
+      setCounter(Math.round((1 - (1 - t) ** 3) * data.earned))
       if (t < 1) { rafRef.current = requestAnimationFrame(tick) }
     }
     rafRef.current = requestAnimationFrame(tick)
@@ -48,48 +49,36 @@ function ProgressPage() {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
       clearTimeout(timeout)
     }
-  }, [earned])
+  }, [data.earned])
 
   return (
     <div className="progress-page">
       <h1 className="progress-page__title">Øvelse fullført! 🎉</h1>
       <p className="progress-page__amount">
-        {gamesCompleted} av {TOTAL_GAMES} øvelser fullført
+        Øvelse {step} av {Object.keys(STEPS).length} fullført
       </p>
 
       <div className="progress-page__scene">
-        {earned > 0 && (
-          <div className="progress-page__coins" aria-hidden="true">
-            {coins.map((c) => (
-              <span
-                key={c.id}
-                className="floating-coin"
-                style={{ left: `${c.x}%`, animationDelay: `${c.delay}ms`, animationDuration: `${ANIM_MS * 0.7}ms` }}
-              >
-                🪙
-              </span>
-            ))}
-          </div>
-        )}
-        <TreasureChest />
+        <div className="progress-page__coins" aria-hidden="true">
+          {coins.map((c) => (
+            <span
+              key={c.id}
+              className="floating-coin"
+              style={{ left: `${c.x}%`, animationDelay: `${c.delay}ms`, animationDuration: `${ANIM_MS * 0.7}ms` }}
+            >
+              🪙
+            </span>
+          ))}
+        </div>
+        <TreasureChest fillPercent={data.fillPercent} coinTotal={data.total} />
       </div>
 
-      {earned > 0 && (
-        <p className="progress-page__earned">
-          +{counter}
-        </p>
-      )}
+      <p className="progress-page__earned">+{counter}</p>
 
       {showButton && (
-        allDone ? (
-          <button className="progress-page__button" onClick={() => navigate('/premie')}>
-            Motta gave 🎁
-          </button>
-        ) : nextPath ? (
-          <button className="progress-page__button" onClick={() => navigate(nextPath)}>
-            Neste øvelse →
-          </button>
-        ) : null
+        <button className="progress-page__button" onClick={() => navigate(data.nextPath)}>
+          {isLast ? 'Motta gave 🎁' : 'Neste øvelse →'}
+        </button>
       )}
     </div>
   )

@@ -24,7 +24,7 @@ function App() {
           <Route path="/spill/4" element={<HangmanGame />} />
           <Route path="/spill/5" element={<RingGame />} />
           <Route path="/spill/6" element={<MazeGame />} />
-          <Route path="/fremgang" element={<ProgressPage />} />
+          <Route path="/fremgang/:step" element={<ProgressPage />} />
           <Route path="/premie" element={<GiftRevealPage />} />
         </Routes>
       </BrowserRouter>

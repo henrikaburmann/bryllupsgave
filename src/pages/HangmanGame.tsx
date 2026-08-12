@@ -132,7 +132,7 @@ function HangmanGame() {
         {isWon && (
           <div className="hangman-overlay hangman-overlay--win">
             <p className="hangman-overlay__text">Riktig! 🎉</p>
-            <button className="hangman-overlay__button" onClick={() => navigate('/fremgang?earned=175')}>
+            <button className="hangman-overlay__button" onClick={() => navigate('/fremgang/4')}>
               Se fremgang
             </button>
           </div>

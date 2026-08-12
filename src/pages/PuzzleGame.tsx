@@ -90,7 +90,7 @@ function PuzzleGame() {
         {solved && (
           <div className="puzzle-win-overlay">
             <p className="puzzle-win-overlay__text">Riktig! 🎉</p>
-            <button className="puzzle-win-overlay__button" onClick={() => navigate('/fremgang?earned=100')}>
+            <button className="puzzle-win-overlay__button" onClick={() => navigate('/fremgang/1')}>
               Se fremgang
             </button>
           </div>
