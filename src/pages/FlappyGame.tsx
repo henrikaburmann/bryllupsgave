@@ -232,8 +232,8 @@ function FlappyGame() {
         {solved && coinsCollected && (
           <div className="flappy-overlay flappy-overlay--win">
             <p className="flappy-overlay__text">Dere fant hverandre! 🎉</p>
-            <button className="flappy-overlay__button" onClick={() => navigate('/fremgang')}>
-              Se fremgang
+            <button className="flappy-overlay__button" onClick={() => navigate('/spill/4')}>
+              Neste øvelse
             </button>
           </div>
         )}
