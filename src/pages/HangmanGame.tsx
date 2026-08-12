@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGameProgress } from '../context/GameProgressContext'
-import TreasureChest from '../components/TreasureChest'
-import CoinBurst from '../components/CoinBurst'
 import './HangmanGame.css'
 
 // Change this to update the word/phrase for the hangman game.
@@ -15,9 +13,7 @@ const KEYBOARD_ROWS = ['ABCDEFGHIJKLM', 'NOPQRSTUVWXYZ', 'ÆØÅ']
 function HangmanGame() {
   const navigate = useNavigate()
   const { completeGame } = useGameProgress()
-  const areaRef = useRef<HTMLDivElement>(null)
   const [guessedLetters, setGuessedLetters] = useState<Set<string>>(new Set())
-  const [coinsCollected, setCoinsCollected] = useState(false)
 
   const solutionLetters = useMemo(
     () => SOLUTION_STRING.split('').map((char) => char.toUpperCase()),
@@ -57,23 +53,20 @@ function HangmanGame() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [guessLetter])
 
-  const handleBurstDone = useCallback(() => {
-    completeGame(GAME_ID)
-    setCoinsCollected(true)
-  }, [completeGame])
+  useEffect(() => {
+    if (isWon) completeGame(GAME_ID)
+  }, [isWon, completeGame])
 
   const resetGame = () => {
     setGuessedLetters(new Set())
-    setCoinsCollected(false)
   }
 
   return (
     <div className="hangman-page">
-      <TreasureChest />
       <h1 className="hangman-page__title">Øvelse 4: Hangman</h1>
       <p className="hangman-page__subtitle">Gjett bokstavene før det går galt!</p>
 
-      <div className="hangman-area" ref={areaRef}>
+      <div className="hangman-area">
         <svg className="hangman-drawing" viewBox="0 0 200 220" aria-hidden="true">
           <line x1="10" y1="210" x2="150" y2="210" className="hangman-line" />
           <line x1="40" y1="210" x2="40" y2="10" className="hangman-line" />
@@ -136,7 +129,7 @@ function HangmanGame() {
           </div>
         )}
 
-        {isWon && coinsCollected && (
+        {isWon && (
           <div className="hangman-overlay hangman-overlay--win">
             <p className="hangman-overlay__text">Riktig! 🎉</p>
             <button className="hangman-overlay__button" onClick={() => navigate('/spill/5')}>
@@ -145,8 +138,6 @@ function HangmanGame() {
           </div>
         )}
       </div>
-
-      <CoinBurst active={isWon && !coinsCollected} originRef={areaRef} onDone={handleBurstDone} />
     </div>
   )
 }

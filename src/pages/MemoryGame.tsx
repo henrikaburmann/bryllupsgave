@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGameProgress } from '../context/GameProgressContext'
-import TreasureChest from '../components/TreasureChest'
-import CoinBurst from '../components/CoinBurst'
 import img1 from '../images/memoryGame/15B41CF2-47A3-4361-8AF8-6882FB6773A3.JPG'
 import img2 from '../images/memoryGame/293CF86C-E11A-4254-8C26-7B432F94B875.JPG'
 import img3 from '../images/memoryGame/78D5B43F-63A5-48CA-81D5-5C033FFE8ED5.JPG'
@@ -37,18 +35,11 @@ function shuffledCards(): MemoryCard[] {
 function MemoryGame() {
   const navigate = useNavigate()
   const { completeGame } = useGameProgress()
-  const boardRef = useRef<HTMLDivElement>(null)
   const [cards] = useState<MemoryCard[]>(() => shuffledCards())
   const [flipped, setFlipped] = useState<number[]>([])
   const [matched, setMatched] = useState<Set<number>>(new Set())
   const [locked, setLocked] = useState(false)
   const [solved, setSolved] = useState(false)
-  const [coinsCollected, setCoinsCollected] = useState(false)
-
-  const handleBurstDone = useCallback(() => {
-    completeGame(GAME_ID)
-    setCoinsCollected(true)
-  }, [completeGame])
 
   useEffect(() => {
     if (flipped.length !== 2) return
@@ -71,8 +62,9 @@ function MemoryGame() {
   useEffect(() => {
     if (matched.size === IMAGES.length && !solved) {
       setSolved(true)
+      completeGame(GAME_ID)
     }
-  }, [matched, solved])
+  }, [matched, solved, completeGame])
 
   const handleCardClick = (position: number) => {
     if (locked || solved) return
@@ -85,11 +77,10 @@ function MemoryGame() {
 
   return (
     <div className="memory-page">
-      <TreasureChest />
       <h1 className="memory-page__title">Øvelse 2: Memory</h1>
       <p className="memory-page__subtitle">Snu to kort om gangen og finn alle parene!</p>
 
-      <div className="memory-board" ref={boardRef}>
+      <div className="memory-board">
         {cards.map((card, position) => {
           const isFaceUp = flipped.includes(position) || matched.has(card.imageIndex)
 
@@ -112,9 +103,7 @@ function MemoryGame() {
           )
         })}
 
-        {solved && !coinsCollected && <div className="memory-win-banner">Riktig! 🎉</div>}
-
-        {solved && coinsCollected && (
+        {solved && (
           <div className="memory-win-overlay">
             <p className="memory-win-overlay__text">Riktig! 🎉</p>
             <button className="memory-win-overlay__button" onClick={() => navigate('/spill/3')}>
@@ -123,8 +112,6 @@ function MemoryGame() {
           </div>
         )}
       </div>
-
-      <CoinBurst active={solved && !coinsCollected} originRef={boardRef} onDone={handleBurstDone} />
     </div>
   )
 }

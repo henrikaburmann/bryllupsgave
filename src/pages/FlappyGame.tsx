@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGameProgress } from '../context/GameProgressContext'
-import TreasureChest from '../components/TreasureChest'
-import CoinBurst from '../components/CoinBurst'
 import torImage from '../images/flappyBirdGame/Tor-flappy.png'
 import victoriaImage from '../images/flappyBirdGame/Victoria-flappy.png'
 import './FlappyGame.css'
@@ -60,8 +58,7 @@ function FlappyGame() {
   const rafRef = useRef<number | null>(null)
   const [phase, setPhase] = useState<Phase>('ready')
   const [solved, setSolved] = useState(false)
-  const [readyForCoins, setReadyForCoins] = useState(false)
-  const [coinsCollected, setCoinsCollected] = useState(false)
+  const [showButton, setShowButton] = useState(false)
   const [, setRenderTick] = useState(0)
 
   const step = useCallback(() => {
@@ -126,8 +123,7 @@ function FlappyGame() {
   const startGame = useCallback(() => {
     stateRef.current = createInitialState()
     setSolved(false)
-    setReadyForCoins(false)
-    setCoinsCollected(false)
+    setShowButton(false)
     setPhase('playing')
     rafRef.current = requestAnimationFrame(step)
   }, [step])
@@ -160,20 +156,15 @@ function FlappyGame() {
 
   useEffect(() => {
     if (!solved) return
-    const timeout = setTimeout(() => setReadyForCoins(true), 1300)
-    return () => clearTimeout(timeout)
-  }, [solved])
-
-  const handleBurstDone = useCallback(() => {
     completeGame(GAME_ID)
-    setCoinsCollected(true)
-  }, [completeGame])
+    const timeout = setTimeout(() => setShowButton(true), 1300)
+    return () => clearTimeout(timeout)
+  }, [solved, completeGame])
 
   const { obstacles, birdY } = stateRef.current
 
   return (
     <div className="flappy-page">
-      <TreasureChest />
       <h1 className="flappy-page__title">Øvelse 3: Flyv til Victoria</h1>
       <p className="flappy-page__subtitle">
         Trykk på skjermen eller pil opp for å fly gjennom {TOTAL_OBSTACLES} hindre!
@@ -229,7 +220,7 @@ function FlappyGame() {
           </div>
         )}
 
-        {solved && coinsCollected && (
+        {solved && showButton && (
           <div className="flappy-overlay flappy-overlay--win">
             <p className="flappy-overlay__text">Dere fant hverandre! 🎉</p>
             <button className="flappy-overlay__button" onClick={() => navigate('/spill/4')}>
@@ -238,8 +229,6 @@ function FlappyGame() {
           </div>
         )}
       </div>
-
-      <CoinBurst active={readyForCoins && !coinsCollected} originRef={areaRef} onDone={handleBurstDone} />
     </div>
   )
 }

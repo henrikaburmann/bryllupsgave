@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGameProgress } from '../context/GameProgressContext'
-import TreasureChest from '../components/TreasureChest'
-import CoinBurst from '../components/CoinBurst'
 import torImage from '../images/flappyBirdGame/Tor-flappy.png'
 import victoriaImage from '../images/flappyBirdGame/Victoria-flappy.png'
 import './MazeGame.css'
@@ -87,7 +85,6 @@ function MazeGame() {
   const [maze, setMaze] = useState<Cell[][]>(() => generateMaze())
   const [pos, setPos] = useState(START)
   const [solved, setSolved] = useState(false)
-  const [coinsCollected, setCoinsCollected] = useState(false)
 
   const move = useCallback(
     (dir: Direction) => {
@@ -113,7 +110,6 @@ function MazeGame() {
     setMaze(generateMaze())
     setPos(START)
     setSolved(false)
-    setCoinsCollected(false)
   }, [])
 
   useEffect(() => {
@@ -134,16 +130,14 @@ function MazeGame() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [move])
 
-  const handleBurstDone = useCallback(() => {
-    completeGame(GAME_ID)
-    setCoinsCollected(true)
-  }, [completeGame])
+  useEffect(() => {
+    if (solved) completeGame(GAME_ID)
+  }, [solved, completeGame])
 
   const cellPercent = 100 / SIZE
 
   return (
     <div className="maze-page">
-      <TreasureChest />
       <h1 className="maze-page__title">Øvelse 6: Finn Victoria</h1>
       <p className="maze-page__subtitle">Hjelp Tor-Øyvind gjennom labyrinten til Victoria!</p>
 
@@ -196,7 +190,7 @@ function MazeGame() {
           <img src={torImage} alt="Tor-Øyvind" />
         </div>
 
-        {solved && coinsCollected && (
+        {solved && (
           <div className="maze-overlay">
             <p className="maze-overlay__text">Dere fant hverandre! 🎉</p>
             <button className="maze-overlay__button" onClick={() => navigate('/fremgang')}>
@@ -231,8 +225,6 @@ function MazeGame() {
           </button>
         </div>
       </div>
-
-      <CoinBurst active={solved && !coinsCollected} originRef={areaRef} onDone={handleBurstDone} />
     </div>
   )
 }
