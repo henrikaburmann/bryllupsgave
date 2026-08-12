@@ -13,7 +13,7 @@ import ProgressPage from './pages/ProgressPage'
 function App() {
   return (
     <GameProgressProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path="/" element={<CongratsPage />} />
           <Route path="/gave" element={<IntroPage />} />
