@@ -58,6 +58,31 @@
   filter: brightness(1.1);
 }
 
+.puzzle-win-banner {
+  position: absolute;
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  background: rgba(74, 44, 58, 0.85);
+  animation: puzzle-win-banner-pop 0.3s ease;
+}
+
+@keyframes puzzle-win-banner-pop {
+  from {
+    transform: translateX(-50%) scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
 .puzzle-win-overlay {
   position: absolute;
   inset: 0;

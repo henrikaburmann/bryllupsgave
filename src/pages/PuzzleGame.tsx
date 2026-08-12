@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useGameProgress, COINS_PER_GAME } from '../context/GameProgressContext'
+import { useGameProgress } from '../context/GameProgressContext'
+import TreasureChest from '../components/TreasureChest'
+import CoinBurst from '../components/CoinBurst'
 import puzzleImage from '../images/tihldeInstallering.JPG'
 import './PuzzleGame.css'
 
@@ -25,18 +27,24 @@ function shuffledOrder(): number[] {
 function PuzzleGame() {
   const navigate = useNavigate()
   const { completeGame } = useGameProgress()
+  const boardRef = useRef<HTMLDivElement>(null)
   const [order, setOrder] = useState<number[]>(() => shuffledOrder())
   const [selected, setSelected] = useState<number | null>(null)
   const [solved, setSolved] = useState(false)
+  const [coinsCollected, setCoinsCollected] = useState(false)
 
   const isSolved = useMemo(() => order.every((value, index) => value === index), [order])
 
   useEffect(() => {
     if (isSolved && !solved) {
       setSolved(true)
-      completeGame(GAME_ID)
     }
-  }, [isSolved, solved, completeGame])
+  }, [isSolved, solved])
+
+  const handleBurstDone = useCallback(() => {
+    completeGame(GAME_ID)
+    setCoinsCollected(true)
+  }, [completeGame])
 
   const handleTileClick = (position: number) => {
     if (solved) return
@@ -61,12 +69,13 @@ function PuzzleGame() {
 
   return (
     <div className="puzzle-page">
+      <TreasureChest />
       <h1 className="puzzle-page__title">Øvelse 1: Puzzlespill</h1>
       <p className="puzzle-page__subtitle">
-        Trykk på to brikker for å bytte plass på dem. Få bildet riktig for å tjene {COINS_PER_GAME} mynter!
+        Trykk på to brikker for å bytte plass på dem. Få bildet riktig for å låse opp neste øvelse!
       </p>
 
-      <div className="puzzle-board">
+      <div className="puzzle-board" ref={boardRef}>
         {order.map((pieceIndex, position) => {
           const col = pieceIndex % GRID_SIZE
           const row = Math.floor(pieceIndex / GRID_SIZE)
@@ -87,15 +96,21 @@ function PuzzleGame() {
           )
         })}
 
-        {solved && (
+        {solved && !coinsCollected && (
+          <div className="puzzle-win-banner">Riktig! 🎉</div>
+        )}
+
+        {solved && coinsCollected && (
           <div className="puzzle-win-overlay">
-            <p className="puzzle-win-overlay__text">Riktig! Dere fikk {COINS_PER_GAME} mynter 🎉</p>
+            <p className="puzzle-win-overlay__text">Riktig! 🎉</p>
             <button className="puzzle-win-overlay__button" onClick={() => navigate('/fremgang')}>
               Se fremgang
             </button>
           </div>
         )}
       </div>
+
+      <CoinBurst active={solved && !coinsCollected} originRef={boardRef} onDone={handleBurstDone} />
     </div>
   )
 }

@@ -1,15 +1,18 @@
-import { useGameProgress, TOTAL_GOAL } from '../context/GameProgressContext'
+import { useGameProgress, TOTAL_GAMES, COINS_PER_GAME } from '../context/GameProgressContext'
+import TreasureChest from '../components/TreasureChest'
 import './ProgressPage.css'
 
 function ProgressPage() {
   const { totalCoins } = useGameProgress()
-  const percent = Math.round((totalCoins / TOTAL_GOAL) * 100)
+  const gamesCompleted = totalCoins / COINS_PER_GAME
+  const percent = Math.round((gamesCompleted / TOTAL_GAMES) * 100)
 
   return (
     <div className="progress-page">
+      <TreasureChest />
       <h1 className="progress-page__title">Fremgang</h1>
       <p className="progress-page__amount">
-        {totalCoins} av {TOTAL_GOAL} kroner samlet
+        {gamesCompleted} av {TOTAL_GAMES} øvelser fullført
       </p>
 
       <div className="progress-page__bar">
