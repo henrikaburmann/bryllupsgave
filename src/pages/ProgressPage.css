@@ -1,0 +1,44 @@
+.progress-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, #ffdde1 0%, #f8c9d4 40%, #d9c5f0 100%);
+}
+
+.progress-page__title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(1.8rem, 5vw, 2.75rem);
+  color: #4a2c3a;
+  margin: 0 0 1rem;
+}
+
+.progress-page__amount {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #5c3a48;
+  margin: 0 0 1.5rem;
+}
+
+.progress-page__bar {
+  width: min(80vw, 380px);
+  height: 1.25rem;
+  border-radius: 999px;
+  background: rgba(74, 44, 58, 0.15);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.progress-page__bar-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #d1477a, #a24fc4);
+  transition: width 0.4s ease;
+}
+
+.progress-page__subtitle {
+  font-size: 1.1rem;
+  color: #5c3a48;
+}

@@ -1,15 +1,22 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { GameProgressProvider } from './context/GameProgressContext'
 import CongratsPage from './pages/CongratsPage'
-import GiftPage from './pages/GiftPage'
+import IntroPage from './pages/IntroPage'
+import PuzzleGame from './pages/PuzzleGame'
+import ProgressPage from './pages/ProgressPage'
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<CongratsPage />} />
-        <Route path="/gave" element={<GiftPage />} />
-      </Routes>
-    </BrowserRouter>
+    <GameProgressProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<CongratsPage />} />
+          <Route path="/gave" element={<IntroPage />} />
+          <Route path="/spill/1" element={<PuzzleGame />} />
+          <Route path="/fremgang" element={<ProgressPage />} />
+        </Routes>
+      </BrowserRouter>
+    </GameProgressProvider>
   )
 }
 
