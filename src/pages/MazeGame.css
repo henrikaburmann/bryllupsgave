@@ -25,17 +25,23 @@
 
 .maze-area {
   position: relative;
-  width: min(calc(100vw - 3rem), 360px);
+  width: min(calc(100vw - 3rem), 340px);
   aspect-ratio: 1;
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 15px 35px rgba(74, 44, 58, 0.3);
+  background: #f6ecff;
+}
+
+.maze-camera {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.12s ease;
 }
 
 .maze-grid {
   display: grid;
-  width: 100%;
-  height: 100%;
   background: #f6ecff;
 }
 
