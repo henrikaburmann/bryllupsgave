@@ -25,7 +25,8 @@
 
 .puzzle-board {
   position: relative;
-  width: min(80vw, 380px);
+  height: min(66vh, 620px);
+  max-width: 90vw;
   aspect-ratio: 1508 / 2915;
   display: grid;
   grid-template-columns: repeat(4, 1fr);

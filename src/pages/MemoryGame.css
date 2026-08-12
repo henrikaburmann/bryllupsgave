@@ -25,7 +25,7 @@
 
 .memory-board {
   position: relative;
-  width: min(92vw, 420px);
+  width: min(92vw, 420px, calc(62vh * 9 / 16));
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
