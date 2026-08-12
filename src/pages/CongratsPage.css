@@ -1,0 +1,81 @@
+.congrats-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(135deg, #ffdde1 0%, #f8c9d4 40%, #d9c5f0 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+.congrats-page__hearts {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 2.25rem;
+  margin-bottom: 1.5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.congrats-page__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #7a4a5a;
+  margin: 0 0 0.75rem;
+}
+
+.congrats-page__title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: #4a2c3a;
+  margin: 0 0 1rem;
+  line-height: 1.1;
+}
+
+.congrats-page__amp {
+  color: #b3466c;
+  font-style: italic;
+}
+
+.congrats-page__subtitle {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: #5c3a48;
+  margin: 0 0 2.5rem;
+  max-width: 32rem;
+}
+
+.congrats-page__button {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #d1477a, #a24fc4);
+  border: none;
+  border-radius: 999px;
+  padding: 1.1rem 3rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(162, 79, 196, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.congrats-page__button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(162, 79, 196, 0.5);
+}
+
+.congrats-page__button:active {
+  transform: translateY(0);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
