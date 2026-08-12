@@ -168,17 +168,9 @@ function MazeGame() {
             height: `${cellPercent}%`,
           }}
         >
-          <div className="castle">
-            <div className="castle__victoria">
-              <img src={victoriaImage} alt="Victoria" />
-            </div>
-            <div className="castle__flag" />
-            <div className="castle__battlement" />
-            <div className="castle__body">
-              <div className="castle__window castle__window--left" />
-              <div className="castle__window castle__window--right" />
-              <div className="castle__gate" />
-            </div>
+          <div className="maze-victoria">
+            <span className="maze-crown">👑</span>
+            <img src={victoriaImage} alt="Victoria" />
           </div>
 
           {solved && (
