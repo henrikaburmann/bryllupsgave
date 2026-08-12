@@ -8,9 +8,9 @@ import './RingGame.css'
 const GAME_ID = 5
 const AREA_WIDTH = 360
 const AREA_HEIGHT = 560
-const FINGER_WIDTH = 90
-const FINGER_HEIGHT = 70
-const FINGER_Y = AREA_HEIGHT - FINGER_HEIGHT
+const FINGER_WIDTH = 80
+const FINGER_HEIGHT = Math.round(AREA_HEIGHT * 0.62)
+const FINGER_TIP_Y = AREA_HEIGHT - FINGER_HEIGHT
 const RING_SIZE = 40
 const START_SPEED = 2.4
 const SPEED_INCREMENT = 0.18
@@ -66,7 +66,7 @@ function RingGame() {
     const fingerLeft = d.fingerX
     const fingerRight = d.fingerX + FINGER_WIDTH
 
-    if (ringBottom >= FINGER_Y + 10) {
+    if (ringBottom >= FINGER_TIP_Y) {
       const onFinger = ringCenterX >= fingerLeft && ringCenterX <= fingerRight
       if (onFinger) {
         d.caught += 1
@@ -151,26 +151,29 @@ function RingGame() {
             className="ring-drop"
             style={{ left: `${(ring.x / AREA_WIDTH) * 100}%`, top: `${(ring.y / AREA_HEIGHT) * 100}%` }}
           >
-            💍
+            <span className="ring-drop__band">
+              <span className="ring-drop__gem" />
+            </span>
           </div>
         )}
 
-        {!solved && (
-          <div className="ring-finger" style={{ left: `${(fingerX / AREA_WIDTH) * 100}%` }}>
-            ☝️
+        <div
+          className={`ring-finger${solved ? ' ring-finger--celebrate' : ''}`}
+          style={{ left: `${(fingerX / AREA_WIDTH) * 100}%` }}
+        >
+          <div className="finger">
+            <div className="finger__nail" />
+            {Array.from({ length: caught }, (_, i) => (
+              <div key={i} className="finger__ring" style={{ top: `${16 + i * 7}%` }}>
+                {i === 0 && <span className="finger__gem" />}
+              </div>
+            ))}
           </div>
-        )}
+        </div>
 
         {phase === 'playing' && !solved && (
           <div className="ring-counter">
             {caught} / {RINGS_TO_WIN}
-          </div>
-        )}
-
-        {solved && (
-          <div className="ring-win-hearts">
-            💍💍💍
-            <span className="ring-win-hand">🫶</span>
           </div>
         )}
 
