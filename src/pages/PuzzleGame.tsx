@@ -91,7 +91,7 @@ function PuzzleGame() {
           <div className="puzzle-win-overlay">
             <p className="puzzle-win-overlay__text">Riktig! 🎉</p>
             <button className="puzzle-win-overlay__button" onClick={() => navigate('/fremgang/1')}>
-              Gå videre til neste spill
+              Se fremgang
             </button>
           </div>
         )}
