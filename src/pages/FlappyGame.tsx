@@ -189,7 +189,7 @@ function FlappyGame() {
     <div className="flappy-page">
       <h1 className="flappy-page__title">Spill 3: Fly til Victoria</h1>
       <p className="flappy-page__subtitle">
-        Trykk på skjermen eller pil opp for å fly gjennom {TOTAL_OBSTACLES} hindre!
+        Trykk på skjermen eller pil opp for å fly gjennom hindrene!
       </p>
 
       <div className="flappy-area" ref={areaRef} onClick={handleJump}>
