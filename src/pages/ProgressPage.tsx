@@ -53,9 +53,9 @@ function ProgressPage() {
 
   return (
     <div className="progress-page">
-      <h1 className="progress-page__title">Øvelse fullført! 🎉</h1>
+      <h1 className="progress-page__title">Spill gjennomført! 🎉</h1>
       <p className="progress-page__amount">
-        Øvelse {step} av {Object.keys(STEPS).length} fullført
+        Spill {step} av {Object.keys(STEPS).length} fullført
       </p>
 
       <div className="progress-page__scene">
@@ -77,7 +77,7 @@ function ProgressPage() {
 
       {showButton && (
         <button className="progress-page__button" onClick={() => navigate(data.nextPath)}>
-          {isLast ? 'Motta gave 🎁' : 'Neste øvelse →'}
+          {isLast ? 'Motta gave 🎁' : 'Neste spill →'}
         </button>
       )}
     </div>

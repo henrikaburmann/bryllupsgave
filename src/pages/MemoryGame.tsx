@@ -77,7 +77,7 @@ function MemoryGame() {
 
   return (
     <div className="memory-page">
-      <h1 className="memory-page__title">Øvelse 2: Memory</h1>
+      <h1 className="memory-page__title">Spill 2: Memory</h1>
       <p className="memory-page__subtitle">Snu to kort om gangen og finn alle parene!</p>
 
       <div className="memory-board">

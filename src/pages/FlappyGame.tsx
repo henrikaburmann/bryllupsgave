@@ -17,6 +17,8 @@ const PIPE_WIDTH = 50
 const GAP_SIZE = 300
 const SPAWN_SPACING = 220
 const TOTAL_OBSTACLES = 10
+const VICTORIA_SIZE = 56
+const VICTORIA_OFFSET_AFTER_LAST = 260
 const HEART_COUNT = 6
 
 interface Obstacle {
@@ -34,6 +36,8 @@ interface GameState {
   totalSpawned: number
   nextId: number
   distanceSinceLastSpawn: number
+  victoriaX: number | null
+  victoriaY: number
 }
 
 function createInitialState(): GameState {
@@ -45,6 +49,8 @@ function createInitialState(): GameState {
     totalSpawned: 0,
     nextId: 0,
     distanceSinceLastSpawn: SPAWN_SPACING,
+    victoriaX: null,
+    victoriaY: AREA_HEIGHT / 2 - VICTORIA_SIZE / 2,
   }
 }
 
@@ -87,6 +93,14 @@ function FlappyGame() {
       s.obstacles.push({ id: s.nextId, x: AREA_WIDTH, gapCenter, passed: false })
       s.nextId += 1
       s.totalSpawned += 1
+      if (s.totalSpawned === TOTAL_OBSTACLES) {
+        s.victoriaX = AREA_WIDTH + VICTORIA_OFFSET_AFTER_LAST
+        s.victoriaY = gapCenter - VICTORIA_SIZE / 2
+      }
+    }
+
+    if (s.victoriaX !== null) {
+      s.victoriaX -= PIPE_SPEED * scale
     }
 
     const birdTop = s.birdY
@@ -118,7 +132,7 @@ function FlappyGame() {
       return
     }
 
-    if (s.obstaclesPassed >= TOTAL_OBSTACLES) {
+    if (s.victoriaX !== null && s.victoriaX <= BIRD_X + BIRD_SIZE / 2) {
       setSolved(true)
       return
     }
@@ -169,11 +183,11 @@ function FlappyGame() {
     return () => clearTimeout(timeout)
   }, [solved, completeGame])
 
-  const { obstacles, birdY } = stateRef.current
+  const { obstacles, birdY, victoriaX, victoriaY } = stateRef.current
 
   return (
     <div className="flappy-page">
-      <h1 className="flappy-page__title">Øvelse 3: Flyv til Victoria</h1>
+      <h1 className="flappy-page__title">Spill 3: Fly til Victoria</h1>
       <p className="flappy-page__subtitle">
         Trykk på skjermen eller pil opp for å fly gjennom {TOTAL_OBSTACLES} hindre!
       </p>
@@ -196,6 +210,15 @@ function FlappyGame() {
         >
           <img src={torImage} alt="Tor-Øyvind" />
         </div>
+
+        {!solved && victoriaX !== null && (
+          <div
+            className="flappy-victoria flappy-victoria--waiting"
+            style={{ left: victoriaX, top: victoriaY }}
+          >
+            <img src={victoriaImage} alt="Victoria" />
+          </div>
+        )}
 
         {solved && (
           <div className="flappy-victoria">

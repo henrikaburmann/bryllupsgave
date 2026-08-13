@@ -61,9 +61,9 @@ function PuzzleGame() {
 
   return (
     <div className="puzzle-page">
-      <h1 className="puzzle-page__title">Øvelse 1: Puslespill</h1>
+      <h1 className="puzzle-page__title">Spill 1: Puslespill</h1>
       <p className="puzzle-page__subtitle">
-        Trykk på to brikker for å bytte plass på dem. Få bildet riktig for å låse opp neste øvelse!
+        Trykk på to brikker for å bytte plass på dem!
       </p>
 
       <div className="puzzle-board">
@@ -91,7 +91,7 @@ function PuzzleGame() {
           <div className="puzzle-win-overlay">
             <p className="puzzle-win-overlay__text">Riktig! 🎉</p>
             <button className="puzzle-win-overlay__button" onClick={() => navigate('/fremgang/1')}>
-              Se fremgang
+              Gå videre til neste spill
             </button>
           </div>
         )}
