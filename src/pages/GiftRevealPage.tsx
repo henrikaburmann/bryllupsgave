@@ -20,7 +20,7 @@ function GiftRevealPage() {
       <div className="gift-reveal__instruction">
         <p className="gift-reveal__instruction-label">For å inkassere gaven:</p>
         <p className="gift-reveal__instruction-body">
-          Tekst Henrik med deres favoritt<br />
+          Tekst Henrik deres favoritt<br />
           Rosenborgspiller gjennom tidene
         </p>
       </div>
