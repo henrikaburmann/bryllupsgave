@@ -6,10 +6,10 @@ import victoriaImage from '../images/flappyBirdGame/Victoria-flappy.png'
 import './MazeGame.css'
 
 const GAME_ID = 6
-const SIZE = 15 // odd number
+const SIZE = 17 // odd number
 const START = { x: 1, y: 1 }
-const GOAL = { x: (SIZE - 1) / 2, y: (SIZE - 1) / 2 }
-const BRAID_CHANCE = 0.45 // fraction of dead ends opened up for more branching
+const GOAL = { x: SIZE - 2, y: SIZE - 2 }
+const BRAID_CHANCE = 0.8 // fraction of dead ends opened up for more branching
 
 type Cell = 0 | 1 // 0 = path, 1 = wall
 
