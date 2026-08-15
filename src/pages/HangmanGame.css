@@ -61,22 +61,24 @@ circle.hangman-part {
 
 .hangman-word {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: 0.4rem;
+  gap: clamp(0.15rem, 1vw, 0.4rem);
+  width: 100%;
+  max-width: 100%;
 }
 
 .hangman-slot {
   display: inline-flex;
   align-items: flex-end;
   justify-content: center;
-  width: 1.6rem;
+  width: clamp(1rem, 6vw, 1.6rem);
   height: 2.2rem;
   border-bottom: 3px solid #4a2c3a;
 }
 
 .hangman-slot__letter {
-  font-size: 1.4rem;
+  font-size: clamp(1rem, 4.5vw, 1.4rem);
   font-weight: 700;
   color: #4a2c3a;
 }
