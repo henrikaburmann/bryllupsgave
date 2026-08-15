@@ -134,7 +134,7 @@ function RingGame() {
 
   return (
     <div className="ring-page">
-      <h1 className="ring-page__title">Øvelse 5: Fang ringene</h1>
+      <h1 className="ring-page__title">Spill 5: Fang ringene</h1>
       <p className="ring-page__subtitle">
         Beveg ringfingeren og få {RINGS_TO_WIN} ringer på plass!
       </p>

@@ -138,7 +138,7 @@ function MazeGame() {
 
   return (
     <div className="maze-page">
-      <h1 className="maze-page__title">Øvelse 6: Finn Victoria</h1>
+      <h1 className="maze-page__title">Spill 6: Finn Victoria</h1>
       <p className="maze-page__subtitle">Hjelp Tor-Øyvind gjennom labyrinten til Victoria!</p>
 
       <div className="maze-area" ref={areaRef}>

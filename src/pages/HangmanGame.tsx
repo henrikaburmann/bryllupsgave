@@ -63,7 +63,7 @@ function HangmanGame() {
 
   return (
     <div className="hangman-page">
-      <h1 className="hangman-page__title">Øvelse 4: Hangman</h1>
+      <h1 className="hangman-page__title">Spill 4: Hangman</h1>
       <p className="hangman-page__subtitle">Gjett bokstavene før det går galt!</p>
 
       <div className="hangman-area">
